@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Vovota Pesa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="max-w-md mx-auto p-4 space-y-6">
+
+    <header class="text-center">
+      <h1 class="text-2xl font-bold text-sky-500">Vovota Pesa</h1>
+      <p class="text-sm text-gray-500">Demo blockchain - paiement transfrontalier</p>
+    </header>
+
+    <section class="bg-white rounded-lg p-4 shadow">
+      <h2 class="text-sky-500 font-semibold mb-2">🪪 Mon Wallet</h2>
+      <p><strong>Adresse:</strong> <span id="walletAddress" class="break-all"></span></p>
+      <p><strong>Solde:</strong> <span id="walletBalance">--</span> Units</p>
+    </section>
+
+    <section class="bg-white rounded-lg p-4 shadow">
+      <h2 class="text-sky-500 font-semibold mb-2">💸 Envoyer des Units</h2>
+      <form id="txForm" class="space-y-3">
+        <input type="text" id="to" placeholder="À (adresse wallet)" class="w-full border rounded p-2" required>
+        <input type="number" id="amount" placeholder="Montant" class="w-full border rounded p-2" min="1" required>
+        <button type="submit" class="w-full bg-sky-500 text-white rounded p-2 hover:bg-sky-600">Envoyer</button>
+      </form>
+      <p id="txMessage" class="text-green-600 text-sm mt-2"></p>
+    </section>
+
+    <section class="bg-white rounded-lg p-4 shadow">
+      <div class="flex justify-between items-center mb-2">
+        <h2 class="text-sky-500 font-semibold">📜 Transactions</h2>
+        <button id="toggleViewBtn" class="text-sm text-sky-500 hover:underline">Afficher tous les transferts</button>
+      </div>
+      <ul id="transactionList" class="space-y-2 text-sm max-h-72 overflow-y-auto"></ul>
+    </section>
+
+  </div>
+
+  <script src="./script.js"></script>
+
+</body>
+</html>
