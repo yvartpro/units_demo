@@ -1,4 +1,4 @@
-const apiURL = "http://localhost:3000"
+const apiURL = "http://192.168.43.170:3000"
 let wallet = localStorage.getItem("wallet")
 let showOnlyMine = true
 
@@ -85,6 +85,14 @@ async function renderTransactions() {
     list.appendChild(li)
   })
 }
+
+const qrCanvas = document.getElementById("qrCanvas")
+if (qrCanvas && wallet) {
+  QRCode.toCanvas(qrCanvas, wallet, { width: 128 }, function (error) {
+    if (error) console.error("QR Code error:", error)
+  })
+}
+
 
 loadBalance()
 renderTransactions()
