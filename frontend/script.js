@@ -1,5 +1,4 @@
-// Frontend logic for Vovota Pesa
-const apiURL = "http://192.168.43.170:3000"
+const apiURL = "http://localhost:3000"
 let wallet = localStorage.getItem("wallet")
 let showOnlyMine = true
 
@@ -7,11 +6,11 @@ if (!wallet) {
   wallet = "0x" + Math.random().toString(16).slice(2, 42)
   localStorage.setItem("wallet", wallet)
 
-  fetch(apiURL + "/new-transaction", {
+  fetch(apiURL + "/transaction", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "0xGENESIS",
+      from: "GENESIS",
       to: wallet,
       amount: 1000
     })
@@ -26,8 +25,8 @@ document.getElementById("walletAddress").textContent = wallet
 document.getElementById("toggleViewBtn").addEventListener("click", () => {
   showOnlyMine = !showOnlyMine
   document.getElementById("toggleViewBtn").textContent = showOnlyMine
-    ? "Afficher tous les transferts"
-    : "Afficher uniquement les miens"
+    ? "Afficher tous"
+    : "Afficher les miens"
   renderTransactions()
 })
 
@@ -36,28 +35,18 @@ document.getElementById("txForm").addEventListener("submit", async (e) => {
   const to = document.getElementById("to").value.trim()
   const amount = parseInt(document.getElementById("amount").value)
   if (to && amount > 0) {
-    await fetch(apiURL + "/new-transaction", {
+    await fetch(apiURL + "/transaction", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ from: wallet, to, amount })
     })
-    document.getElementById("txMessage").textContent = "Transaction envoyée au pool!"
+    document.getElementById("txMessage").textContent = "Transaction envoyée !"
     document.getElementById("to").value = ""
     document.getElementById("amount").value = ""
     loadBalance()
     renderTransactions()
     setTimeout(() => document.getElementById("txMessage").textContent = "", 3000)
   }
-})
-
-document.getElementById("mineBtn").addEventListener("click", async () => {
-  const res = await fetch(apiURL + "/mine", {
-    method: "POST"
-  })
-  const result = await res.json()
-  alert(result.message || "Bloc miné.")
-  loadBalance()
-  renderTransactions()
 })
 
 async function loadBalance() {
@@ -86,13 +75,13 @@ async function renderTransactions() {
     : txs
 
   if (filtered.length === 0) {
-    list.innerHTML = "<li>Aucune transaction à afficher.</li>"
+    list.innerHTML = "<li>Aucune transaction.</li>"
     return
   }
 
   filtered.reverse().forEach(tx => {
     const li = document.createElement("li")
-    li.textContent = `Tx: ${tx.amount} Units de ${tx.from.slice(0, 10)}... à ${tx.to.slice(0, 10)}... le ${new Date(tx.timestamp).toLocaleString()}`
+    li.textContent = `Tx: ${tx.amount} unités de ${tx.from.slice(0, 10)}... à ${tx.to.slice(0, 10)}... le ${new Date(tx.timestamp).toLocaleString()}`
     list.appendChild(li)
   })
 }

@@ -8,7 +8,9 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans p-4">
   <div class="max-w-md mx-auto">
-    <h1 class="text-2xl font-bold text-sky-500 mb-4 text-center">Vovota Pesa</h1>
+    <div class="text-center">
+      <img src="./pesa.png" alt="logo" class="h-16 w-32"/>
+    </div>
     <p class="text-sm mb-1">Adresse: <span id="walletAddress" class="font-mono"></span></p>
     <p class="text-sm mb-4">Solde: <span id="walletBalance" class="font-semibold"></span> Units</p>
 
@@ -20,8 +22,7 @@
     <p id="txMessage" class="text-green-600 text-sm mb-3"></p>
 
     <div class="flex justify-between items-center mb-4">
-      <button id="toggleViewBtn" class="text-sm underline text-sky-600">Afficher tous les transferts</button>
-      <button id="mineBtn" class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">Miner</button>
+      <button id="toggleViewBtn" class="text-sm underline text-sky-600">Afficher tous</button>
     </div>
 
     <ul id="transactionList" class="space-y-2 text-sm"></ul>
